@@ -1,0 +1,13 @@
+# Compiled binary (named after the module)
+/redis-custom-go
+
+# Test & coverage output
+*.test
+*.out
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Editor/OS cruft
+.DS_Store
