@@ -26,8 +26,8 @@ func (s *Store) Set(key string, value string) {
 
 
 func (s *Store) Get(key string) (string, bool) {
-	val, ok := s.data[key] 
-	return val.expiresAt.String(), ok
+	val, ok := s.data[key]
+	return val.value, ok
 }
 
 func (s *Store) Exist(key string) (bool) {
@@ -35,7 +35,7 @@ func (s *Store) Exist(key string) (bool) {
 	return ok
 }
 
-
+///variadic parameterm any number of key strings
 func (s *Store) Del(keys ...string) (int) {
 
 	count := 0 
