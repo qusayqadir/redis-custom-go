@@ -33,6 +33,9 @@ ping -> get/set/del -> expiry/ttl -> etc
 
 decode client raw byte into a command
 encode reply back into RESP format 
+
+wire protocol 
 */ 
 
 package resp 
+

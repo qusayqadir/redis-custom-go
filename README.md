@@ -2,53 +2,23 @@
 
 Building my own Redis clone from scratch in Go.
 
-## What this is
+## to do 
 
-The goal is to reimplement Redis myself while learning Go. 
-start with a single-node server that runs on my machine, then to grow it into something
-distributed. 
+### `store.go` — the data layer
 
-## Roadmap
+- [x] `Set`, `Get`, `Exist`, `Del` with unit tests in CI
+- [ ] Add a `sync.RWMutex` to `Store` for safe concurrent access
+- [ ] Add TTL: `Expire`, `TTL`, and `Persist`
+- [ ] Expire keys lazily on `Get`/`Exist`
 
-### Phase 1 — Local Redis clone
+### `resp.go` — the wire protocol
 
-Get a real, working key-value server running locally:
+- [ ] `Decode` a RESP array of bulk strings into a command
+- [ ] Encode replies: simple string, error, integer, bulk string, null
+- [ ] Unit tests for decoding and each encoder
 
-- [ ] TCP server that accepts client connections (`net` package)
-- [ ] Speak the RESP protocol (the wire format `redis-cli` uses)
-- [ ] Core commands: `PING`, `SET`, `GET`, `DEL`
-- [ ] Key expiry (`EX` / `TTL`)
-- [ ] Concurrency: handle many clients at once with goroutines
+### `server.go` — networking + dispatch
 
-Success = I can point `redis-cli` at it and it just works.
-
-### Phase 2 — Redis "cloud" (distributed)
-
-Once the single node is solid, make it distributed and design the cloud
-architecture myself:
-
-- [ ] Replication (primary → replicas)
-- [ ] Sharding / partitioning keys across nodes
-- [ ] A coordination/routing layer
-- [ ] Cloud architecture design (deployment, scaling, failover)
-
-
-
-## Why
-
-The point isn't to replace Redis — it's to **learn Go**, understand how Redis
-works by building it, and see how far I can take it.
-
-## Getting started
-
-Requires [Go](https://go.dev/dl/) installed.
-
-```bash
-# Run it
-go run .
-
-# Or build a binary
-go build -o redis-custom-go .
-./redis-custom-go
-```
-
+- [x] TCP listener that spawns a goroutine per client
+- [ ] Implement `handleConn` to decode, dispatch, and reply in a loop
+- [ ] Dispatch `PING`, `SET`, `GET`, `DEL`, `EXISTS`, `EXPIRE`, `TTL`
