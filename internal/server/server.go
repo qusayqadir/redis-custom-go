@@ -13,11 +13,11 @@ import (
 
 // talks to the client 
 func handleConn(conn net.Conn, db *store.Store) {
-
+	
 }
 
 
-// if error nil then there is an issue 
+// if error nil then there is an 
 func Run(port_num string) error {
 
 	db := store.New()
@@ -32,15 +32,13 @@ func Run(port_num string) error {
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
-			continue 
+			continue
 		}
-	
+		
 		// go is keyword to run concurrently 
 		// goroutine 
 		go handleConn(conn, db) 
 	}
 	
 } 
-
-
 
